@@ -34,11 +34,11 @@ export const QuantumLab: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Atom className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <Atom className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Quantum Lab & Simulator
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               QISKIT AER SIMULATOR
             </span>
           </div>
@@ -50,7 +50,7 @@ export const QuantumLab: React.FC = () => {
         <button
           onClick={() => refetch()}
           disabled={isLoading}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium transition-colors shadow-xs disabled:opacity-50 focus:outline-none"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[var(--brand-primary)] hover:opacity-90 text-white font-sans text-xs font-medium transition-opacity shadow-xs disabled:opacity-50 focus:outline-none cursor-pointer"
         >
           {isLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
           <span>Execute Circuit</span>

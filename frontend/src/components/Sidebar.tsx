@@ -11,7 +11,7 @@ import {
   Bot,
   FileText,
   Settings,
-  Sparkles,
+  PlayCircle,
   Shield,
   Radio
 } from 'lucide-react';
@@ -40,19 +40,19 @@ export const Sidebar: React.FC = () => {
       items: [
         { to: '/copilot', label: 'Security Copilot', icon: Bot },
         { to: '/reports', label: 'Audit Reports', icon: FileText },
-        { to: '/demo', label: 'Judge Demo Mode', icon: Sparkles, highlight: true },
+        { to: '/demo', label: 'Judge Demo Mode', icon: PlayCircle, highlight: true },
         { to: '/settings', label: 'Settings & Thresholds', icon: Settings },
       ]
     }
   ];
 
   return (
-    <aside className="w-64 bg-[var(--bg-panel)] border-r border-[var(--border-panel)] flex flex-col justify-between shrink-0 select-none">
+    <aside className="w-64 bg-[var(--bg-sidebar)] border-r border-[var(--border-panel)] flex flex-col justify-between shrink-0 select-none">
       {/* Brand Header */}
       <div className="p-4 border-b border-[var(--border-panel)]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] flex items-center justify-center text-sky-500 font-mono font-bold text-sm">
-            <Shield className="w-4 h-4 text-sky-500" />
+          <div className="w-8 h-8 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] flex items-center justify-center text-[var(--brand-primary)] font-mono font-bold text-sm">
+            <Shield className="w-4 h-4 text-[var(--brand-primary)]" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
@@ -66,7 +66,7 @@ export const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation Modules with Calm, Intentional Spacing */}
+      {/* Navigation Modules */}
       <div className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
         {navSections.map((section, idx) => (
           <div key={idx} className="space-y-1.5">
@@ -84,10 +84,10 @@ export const Sidebar: React.FC = () => {
                       `flex items-center gap-2.5 px-2.5 py-1.5 text-xs font-medium rounded transition-colors ${
                         isActive
                           ? item.highlight
-                            ? 'bg-sky-500/10 text-sky-500 border-l-2 border-sky-500 pl-[8px] font-semibold'
-                            : 'bg-[var(--bg-panel-elevated)] text-[var(--text-primary)] border-l-2 border-sky-500 pl-[8px] font-semibold'
+                            ? 'bg-[var(--bg-panel-elevated)] text-[var(--brand-primary)] border-l-2 border-[var(--brand-primary)] pl-[8px] font-semibold'
+                            : 'bg-[var(--bg-panel-elevated)] text-[var(--text-primary)] border-l-2 border-[var(--brand-primary)] pl-[8px] font-semibold'
                           : item.highlight
-                          ? 'text-sky-500/90 hover:bg-[var(--bg-panel-subtle)] hover:text-sky-500'
+                          ? 'text-[var(--brand-primary)] hover:bg-[var(--bg-panel-subtle)]'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel-subtle)]'
                       }`
                     }
@@ -95,7 +95,7 @@ export const Sidebar: React.FC = () => {
                     <Icon className="w-4 h-4 shrink-0 text-[var(--text-muted)]" />
                     <span className="truncate">{item.label}</span>
                     {item.highlight && (
-                      <span className="ml-auto px-1.5 py-0.2 text-[9px] font-mono bg-sky-500/10 text-sky-500 rounded border border-sky-500/20">
+                      <span className="ml-auto px-1.5 py-0.2 text-[9px] font-mono bg-[var(--bg-panel-subtle)] text-[var(--brand-primary)] rounded border border-[var(--border-panel)]">
                         DEMO
                       </span>
                     )}
@@ -107,14 +107,14 @@ export const Sidebar: React.FC = () => {
         ))}
       </div>
 
-      {/* Protocol Architecture Diagnostic Status Footer */}
+      {/* Protocol Diagnostic Status Footer */}
       <div className="p-3 m-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] text-[11px] space-y-2">
         <div className="flex items-center justify-between font-mono text-[10px]">
           <span className="flex items-center gap-1.5 text-[var(--text-secondary)]">
-            <Radio className="w-3 h-3 text-emerald-500" />
+            <Radio className="w-3 h-3 text-[var(--status-secure-text)]" />
             <span>QDS PROTOCOL</span>
           </span>
-          <span className="text-emerald-500 font-medium px-1.5 py-0.2 bg-emerald-500/10 border border-emerald-500/20 rounded text-[9px]">
+          <span className="text-[var(--status-secure-text)] font-medium px-1.5 py-0.2 bg-[var(--status-secure-bg)] border border-[var(--status-secure-border)] rounded text-[9px]">
             ACTIVE
           </span>
         </div>

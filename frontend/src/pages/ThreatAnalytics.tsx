@@ -41,11 +41,11 @@ export const ThreatAnalytics: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <LineChartIcon className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <LineChartIcon className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Mathematical & Statistical Threat Analytics
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               RIGOROUS METRICS
             </span>
           </div>
@@ -60,9 +60,9 @@ export const ThreatAnalytics: React.FC = () => {
         <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-2.5">
           <div className="text-[var(--text-primary)] font-sans font-medium flex justify-between items-center">
             <span>Total Variation Distance</span>
-            <span className="font-mono text-sky-500 font-semibold text-xs">δ(P, Q)</span>
+            <span className="font-mono text-[var(--brand-primary)] font-semibold text-xs">δ(P, Q)</span>
           </div>
-          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-sky-500 text-[11px]">
+          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-[var(--text-primary)] text-[11px]">
             δ(P, Q) = ½ ∑ |P(x) - Q(x)|
           </div>
           <p className="text-[11px] text-[var(--text-muted)] font-sans leading-relaxed">
@@ -73,9 +73,9 @@ export const ThreatAnalytics: React.FC = () => {
         <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-2.5">
           <div className="text-[var(--text-primary)] font-sans font-medium flex justify-between items-center">
             <span>Hellinger Distance</span>
-            <span className="font-mono text-indigo-500 font-semibold text-xs">H(P, Q)</span>
+            <span className="font-mono text-[var(--text-secondary)] font-semibold text-xs">H(P, Q)</span>
           </div>
-          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-indigo-500 text-[11px]">
+          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-[var(--text-primary)] text-[11px]">
             H = (1/√2) √(∑ (√P - √Q)²)
           </div>
           <p className="text-[11px] text-[var(--text-muted)] font-sans leading-relaxed">
@@ -86,9 +86,9 @@ export const ThreatAnalytics: React.FC = () => {
         <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-2.5">
           <div className="text-[var(--text-primary)] font-sans font-medium flex justify-between items-center">
             <span>Chi-Square Test</span>
-            <span className="font-mono text-emerald-500 font-semibold text-xs">χ² & p-value</span>
+            <span className="font-mono text-[#4FAF9A] font-semibold text-xs">χ² & p-value</span>
           </div>
-          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-emerald-500 text-[11px]">
+          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-[var(--text-primary)] text-[11px]">
             χ² = ∑ (O_i - E_i)² / E_i
           </div>
           <p className="text-[11px] text-[var(--text-muted)] font-sans leading-relaxed">
@@ -99,9 +99,9 @@ export const ThreatAnalytics: React.FC = () => {
         <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-2.5">
           <div className="text-[var(--text-primary)] font-sans font-medium flex justify-between items-center">
             <span>Quantum State Fidelity</span>
-            <span className="font-mono text-emerald-500 font-semibold text-xs">F(P, Q)</span>
+            <span className="font-mono text-[#4FAF9A] font-semibold text-xs">F(P, Q)</span>
           </div>
-          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-emerald-500 text-[11px]">
+          <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] font-mono text-[var(--text-primary)] text-[11px]">
             F = (∑ √(P(x) · Q(x)))²
           </div>
           <p className="text-[11px] text-[var(--text-muted)] font-sans leading-relaxed">
@@ -113,8 +113,8 @@ export const ThreatAnalytics: React.FC = () => {
       {/* Multi-Metric Telemetry Chart */}
       <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-5 space-y-4">
         <div className="flex flex-wrap items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
-          <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-sky-500" />
+          <h3 className="text-xs font-semibold text-[var(--text-muted)] font-mono uppercase tracking-wider flex items-center gap-2">
+            <Calculator className="w-3.5 h-3.5 text-[var(--brand-primary)]" />
             <span>Historical Statistical Divergence Curves</span>
           </h3>
           <span className="text-[11px] font-mono text-[var(--text-muted)]">Telemetry Stream</span>
@@ -123,24 +123,24 @@ export const ThreatAnalytics: React.FC = () => {
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 10, right: 15, left: -15, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="2 2" stroke={isLight ? '#E2E8F0' : '#1E293B'} vertical={false} />
-              <XAxis dataKey="index" stroke={isLight ? '#64748B' : '#64748B'} fontSize={11} tickLine={false} />
-              <YAxis stroke={isLight ? '#64748B' : '#64748B'} domain={[0, 1]} fontSize={11} tickLine={false} axisLine={false} />
+              <CartesianGrid strokeDasharray="2 2" stroke={isLight ? '#E2E8F0' : '#1F2733'} vertical={false} />
+              <XAxis dataKey="index" stroke={isLight ? '#64748B' : '#6B7A8D'} fontSize={11} tickLine={false} />
+              <YAxis stroke={isLight ? '#64748B' : '#6B7A8D'} domain={[0, 1]} fontSize={11} tickLine={false} axisLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: isLight ? '#FFFFFF' : '#0E131A',
-                  borderColor: isLight ? '#D0D7DE' : '#2A394E',
-                  color: isLight ? '#1B222C' : '#F1F5F9',
+                  backgroundColor: isLight ? '#FFFFFF' : '#151B23',
+                  borderColor: isLight ? '#D0D7DE' : '#242C36',
+                  color: isLight ? '#1B222C' : '#E6EDF3',
                   borderRadius: '4px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '11px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
                 }}
               />
               <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'var(--font-mono)', paddingTop: '8px' }} />
-              <Line type="monotone" dataKey="tvd" name="TVD Distance δ" stroke="#0284C7" strokeWidth={2} dot={{ r: 3, fill: '#0284C7' }} />
-              <Line type="monotone" dataKey="hellinger" name="Hellinger Distance H" stroke="#6366F1" strokeWidth={1.5} dot={{ r: 2, fill: '#6366F1' }} />
-              <Line type="monotone" dataKey="fidelity" name="State Fidelity F" stroke="#10B981" strokeWidth={1.5} dot={{ r: 2, fill: '#10B981' }} />
+              <Line type="monotone" dataKey="tvd" name="TVD Distance δ" stroke="#5B9BD5" strokeWidth={2} dot={{ r: 2.5, fill: '#5B9BD5' }} />
+              <Line type="monotone" dataKey="hellinger" name="Hellinger Distance H" stroke="#7C8BA1" strokeWidth={1.5} dot={{ r: 2, fill: '#7C8BA1' }} />
+              <Line type="monotone" dataKey="fidelity" name="State Fidelity F" stroke="#4FAF9A" strokeWidth={1.5} dot={{ r: 2, fill: '#4FAF9A' }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -1,11 +1,9 @@
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
 
 interface MetricCardProps {
   title: string;
   value: string | number;
   subtitle?: string;
-  icon?: LucideIcon;
   trend?: {
     value: string;
     isPositive?: boolean;
@@ -19,13 +17,11 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   title,
   value,
   subtitle,
-  icon: Icon,
   trend,
-  formula,
-  statusColor = 'slate'
+  formula
 }) => {
   return (
-    <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] hover:border-[var(--border-hover)] transition-all space-y-2">
+    <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] hover:border-[var(--border-hover)] transition-all space-y-1.5">
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-[var(--text-secondary)] tracking-wide font-sans">
           {title}
@@ -36,8 +32,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               trend.isNeutral
                 ? 'bg-[var(--bg-panel-subtle)] text-[var(--text-secondary)] border-[var(--border-panel)]'
                 : trend.isPositive
-                ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                : 'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                ? 'bg-[var(--status-secure-bg)] text-[var(--status-secure-text)] border-[var(--status-secure-border)]'
+                : 'bg-[var(--status-malicious-bg)] text-[var(--status-malicious-text)] border-[var(--status-malicious-border)]'
             }`}
           >
             {trend.value}
@@ -50,7 +46,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {(subtitle || formula) && (
-        <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)] pt-1 border-t border-[var(--border-subtle)]">
+        <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)] pt-1.5 border-t border-[var(--border-subtle)]">
           <span className="truncate">{subtitle}</span>
           {formula && (
             <span className="font-mono text-[10px] text-[var(--text-secondary)] shrink-0 ml-2 bg-[var(--bg-panel-subtle)] px-1.5 py-0.2 rounded border border-[var(--border-panel)]">

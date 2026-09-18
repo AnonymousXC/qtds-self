@@ -91,11 +91,11 @@ export const VerificationCenter: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <ShieldAlert className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <ShieldAlert className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Signature Verification Workspace
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               VERIFIER WORKSPACE (BOB)
             </span>
           </div>
@@ -245,7 +245,7 @@ export const VerificationCenter: React.FC = () => {
             <button
               type="submit"
               disabled={verifyMutation.isPending || !selectedSessionId}
-              className="w-full py-2.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium flex items-center justify-center gap-2 transition-colors shadow-xs text-xs disabled:opacity-50"
+              className="w-full py-2.5 rounded bg-[var(--brand-primary)] hover:opacity-90 text-white font-sans font-medium flex items-center justify-center gap-2 transition-opacity shadow-xs text-xs disabled:opacity-50 cursor-pointer"
             >
               {verifyMutation.isPending ? (
                 <>

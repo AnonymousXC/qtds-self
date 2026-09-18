@@ -77,11 +77,11 @@ export const QDSSignature: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <KeyRound className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <KeyRound className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Quantum Digital Signature Generation
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               SIGNER WORKSPACE (ALICE)
             </span>
           </div>
@@ -98,8 +98,8 @@ export const QDSSignature: React.FC = () => {
           {/* Active Session Card */}
           <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-5 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
-              <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider flex items-center gap-2">
-                <Layers className="w-4 h-4 text-sky-500" />
+              <h3 className="text-xs font-semibold text-[var(--text-muted)] font-mono uppercase tracking-wider flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-[var(--brand-primary)]" />
                 <span>QDS Session Keypair</span>
               </h3>
             </div>
@@ -110,7 +110,7 @@ export const QDSSignature: React.FC = () => {
                 <select
                   value={selectedSessionId}
                   onChange={(e) => setSelectedSessionId(e.target.value)}
-                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-3 py-2 text-[var(--text-primary)] outline-none focus:border-sky-500 font-mono text-xs"
+                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-3 py-2 text-[var(--text-primary)] outline-none focus:border-[var(--brand-primary)] font-mono text-xs"
                 >
                   {sessions?.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -237,7 +237,7 @@ export const QDSSignature: React.FC = () => {
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   placeholder="Enter message text, transaction payload, or cryptographic hash..."
-                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-md p-3 text-[var(--text-primary)] focus:border-sky-500 outline-none font-sans text-sm leading-relaxed"
+                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-md p-3 text-[var(--text-primary)] focus:border-[var(--brand-primary)] outline-none font-sans text-sm leading-relaxed"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export const QDSSignature: React.FC = () => {
                 <button
                   type="submit"
                   disabled={generateSigMutation.isPending || !selectedSessionId}
-                  className="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium transition-colors shadow-xs flex items-center gap-2 disabled:opacity-50"
+                  className="px-4 py-2 rounded bg-[var(--brand-primary)] hover:opacity-90 text-white font-sans text-xs font-medium transition-opacity shadow-xs flex items-center gap-2 disabled:opacity-50 cursor-pointer"
                 >
                   {generateSigMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <KeyRound className="w-3.5 h-3.5" />}
                   <span>{generateSigMutation.isPending ? 'Teleporting...' : 'Generate Quantum Signature'}</span>

@@ -53,11 +53,11 @@ export const Reports: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <FileText className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <FileText className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Security Audit & Incident Reports
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               FORMAL AUDIT ARTIFACTS
             </span>
           </div>
@@ -70,7 +70,7 @@ export const Reports: React.FC = () => {
           <button
             onClick={handleGenerateFromLatest}
             disabled={generateReportMutation.isPending}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium shadow-xs transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--brand-primary)] hover:opacity-90 text-white font-sans text-xs font-medium shadow-xs transition-opacity disabled:opacity-50 cursor-pointer"
           >
             {generateReportMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <PlusCircle className="w-3.5 h-3.5" />}
             <span>Generate New Report</span>
@@ -78,7 +78,7 @@ export const Reports: React.FC = () => {
           {activeReport && (
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-xs font-sans text-[var(--text-secondary)] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-xs font-sans text-[var(--text-secondary)] transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print / PDF</span>

@@ -72,11 +72,11 @@ export const Copilot: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Bot className="w-5 h-5 text-sky-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
-              AI Quantum Security Copilot
+            <Bot className="w-4 h-4 text-[var(--brand-primary)]" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              Quantum Security Copilot
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded">
               AUXILIARY REASONING ENGINE
             </span>
           </div>
@@ -91,7 +91,7 @@ export const Copilot: React.FC = () => {
           <select
             value={selectedVerifId}
             onChange={(e) => setSelectedVerifId(e.target.value)}
-            className="bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] outline-none focus:border-sky-500 font-mono text-xs"
+            className="bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--brand-primary)] font-mono text-xs"
           >
             {verifications?.map((v) => (
               <option key={v.id} value={v.id}>
@@ -107,7 +107,7 @@ export const Copilot: React.FC = () => {
         <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-xs space-y-2.5">
           <div className="flex items-center justify-between">
             <span className="text-[var(--text-primary)] font-medium font-sans flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-sky-500" />
+              <Layers className="w-3.5 h-3.5 text-[var(--brand-primary)]" />
               <span>Deterministic Context Supplied to Copilot</span>
             </span>
             <VerdictBadge status={activeVerif.status} size="sm" />
@@ -116,7 +116,7 @@ export const Copilot: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono pt-1">
             <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
               <span className="text-[var(--text-muted)] font-sans block text-[10px]">TVD Distance:</span>
-              <span className="text-sky-500 font-semibold">{activeVerif.statistical_metrics.total_variation_distance.toFixed(4)}</span>
+              <span className="text-[var(--brand-primary)] font-semibold">{activeVerif.statistical_metrics.total_variation_distance.toFixed(4)}</span>
             </div>
             <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
               <span className="text-[var(--text-muted)] font-sans block text-[10px]">QBER Error:</span>
@@ -124,11 +124,11 @@ export const Copilot: React.FC = () => {
             </div>
             <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
               <span className="text-[var(--text-muted)] font-sans block text-[10px]">State Fidelity:</span>
-              <span className="text-emerald-500 font-semibold">{activeVerif.statistical_metrics.fidelity.toFixed(4)}</span>
+              <span className="text-[#4FAF9A] font-semibold">{activeVerif.statistical_metrics.fidelity.toFixed(4)}</span>
             </div>
             <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
               <span className="text-[var(--text-muted)] font-sans block text-[10px]">Classification:</span>
-              <span className="text-indigo-500 font-semibold">{activeVerif.attack_type}</span>
+              <span className="text-[var(--text-secondary)] font-semibold">{activeVerif.attack_type}</span>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@ export const Copilot: React.FC = () => {
             <button
               key={idx}
               onClick={() => handleSend(chip)}
-              className="px-3 py-1 rounded-full bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] hover:border-[var(--border-hover)] text-xs text-[var(--text-secondary)] transition-colors font-sans"
+              className="px-3 py-1 rounded bg-[var(--bg-panel-subtle)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors font-sans cursor-pointer"
             >
               {chip}
             </button>
@@ -154,7 +154,7 @@ export const Copilot: React.FC = () => {
       <div className="space-y-4">
         {conversation.length === 0 ? (
           <div className="p-8 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-center space-y-3">
-            <Bot className="w-8 h-8 text-sky-500 mx-auto opacity-75" />
+            <Bot className="w-7 h-7 text-[var(--text-muted)] mx-auto opacity-75" />
             <div className="text-sm font-semibold text-[var(--text-primary)] font-sans">Quantum Security Copilot Ready</div>
             <p className="text-xs text-[var(--text-muted)] max-w-lg mx-auto font-sans leading-relaxed">
               Ask any question about quantum teleportation signatures, Bell state entanglement, or the mathematical proofs behind threat classifications.
@@ -173,8 +173,8 @@ export const Copilot: React.FC = () => {
                 <div className="max-w-3xl p-5 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-4">
                   {/* Confidence Note Header */}
                   <div className="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)] text-[11px]">
-                    <span className="text-sky-500 font-medium flex items-center gap-1.5 font-sans">
-                      <Sparkles className="w-3.5 h-3.5" />
+                    <span className="text-[var(--brand-primary)] font-medium flex items-center gap-1.5 font-sans">
+                      <Bot className="w-3.5 h-3.5" />
                       <span>{msg.data.confidence_note}</span>
                     </span>
                     <VerdictBadge status={msg.data.verdict} size="sm" />
@@ -188,7 +188,7 @@ export const Copilot: React.FC = () => {
                   {/* Quantum Principles & Recommendations */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t border-[var(--border-subtle)] text-[11px] font-sans">
                     <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1">
-                      <div className="text-sky-500 font-medium">Quantum Physical Foundations:</div>
+                      <div className="text-[var(--brand-primary)] font-medium">Quantum Physical Foundations:</div>
                       <ul className="list-disc list-inside text-[var(--text-muted)] space-y-0.5">
                         {msg.data.quantum_principles?.map((p: string, i: number) => (
                           <li key={i}>{p}</li>
@@ -197,7 +197,7 @@ export const Copilot: React.FC = () => {
                     </div>
 
                     <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1">
-                      <div className="text-emerald-500 font-medium">Recommended Actions:</div>
+                      <div className="text-[#4FAF9A] font-medium">Recommended Actions:</div>
                       <ul className="list-disc list-inside text-[var(--text-muted)] space-y-0.5">
                         {msg.data.recommended_actions?.map((a: string, i: number) => (
                           <li key={i}>{a}</li>
@@ -230,7 +230,7 @@ export const Copilot: React.FC = () => {
         <button
           type="submit"
           disabled={copilotMutation.isPending || !userQuery.trim()}
-          className="px-3.5 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium transition-colors flex items-center gap-1.5 disabled:opacity-50"
+          className="px-3.5 py-2 rounded bg-[var(--brand-primary)] hover:opacity-90 text-white font-sans font-medium transition-opacity flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
         >
           {copilotMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
           <span>Send</span>

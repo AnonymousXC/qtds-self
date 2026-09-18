@@ -69,11 +69,11 @@ export const AttackLab: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Flame className="w-5 h-5 text-rose-500" />
-            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+            <Flame className="w-4 h-4 text-rose-500" />
+            <h1 className="text-lg font-bold font-sans tracking-tight text-[var(--text-primary)]">
               Quantum Cyber Attack Simulator & Lab
             </h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-rose-500/10 text-rose-500 border border-rose-500/20 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded">
               ADVERSARIAL INJECTION
             </span>
           </div>
@@ -223,23 +223,23 @@ export const AttackLab: React.FC = () => {
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={comparisonChartData} margin={{ top: 10, right: 15, left: -10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="2 2" stroke={isLight ? '#E2E8F0' : '#1E293B'} vertical={false} />
-                    <XAxis dataKey="state" stroke={isLight ? '#64748B' : '#64748B'} fontSize={11} tickLine={false} />
-                    <YAxis stroke={isLight ? '#64748B' : '#64748B'} unit="%" domain={[0, 100]} fontSize={11} tickLine={false} axisLine={false} />
+                    <CartesianGrid strokeDasharray="2 2" stroke={isLight ? '#E2E8F0' : '#1F2733'} vertical={false} />
+                    <XAxis dataKey="state" stroke={isLight ? '#64748B' : '#6B7A8D'} fontSize={11} tickLine={false} />
+                    <YAxis stroke={isLight ? '#64748B' : '#6B7A8D'} unit="%" domain={[0, 100]} fontSize={11} tickLine={false} axisLine={false} />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: isLight ? '#FFFFFF' : '#0E131A',
-                        borderColor: isLight ? '#D0D7DE' : '#2A394E',
-                        color: isLight ? '#1B222C' : '#F1F5F9',
+                        backgroundColor: isLight ? '#FFFFFF' : '#151B23',
+                        borderColor: isLight ? '#D0D7DE' : '#242C36',
+                        color: isLight ? '#1B222C' : '#E6EDF3',
                         borderRadius: '4px',
                         fontFamily: 'var(--font-mono)',
                         fontSize: '11px',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
                       }}
                     />
                     <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'var(--font-mono)', paddingTop: '8px' }} />
-                    <Bar dataKey="Normal" fill="#10B981" name="Normal (Authentic)" radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="Attacked" fill="#EF4444" name={`Attacked (${attackType})`} radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="Normal" fill="#4FAF9A" name="Normal (Authentic)" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="Attacked" fill="#E05252" name={`Attacked (${attackType})`} radius={[2, 2, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
