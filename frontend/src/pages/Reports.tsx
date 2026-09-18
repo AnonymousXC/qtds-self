@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FileText, Download, Printer, PlusCircle, CheckCircle2, ShieldAlert, Cpu, Sparkles } from 'lucide-react';
+import { FileText, Printer, PlusCircle, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
-import { AIReport } from '../types';
 import { VerdictBadge } from '../components/VerdictBadge';
 
 export const Reports: React.FC = () => {
@@ -49,54 +48,54 @@ export const Reports: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <FileText className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-bold font-mono tracking-tight text-slate-100">
-              SECURITY AUDIT & INCIDENT REPORTS
+            <FileText className="w-5 h-5 text-sky-500" />
+            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              Security Audit & Incident Reports
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
               FORMAL AUDIT ARTIFACTS
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5 font-sans">
             Structured quantum security reports integrating deterministic mathematical metrics, circuit execution parameters, and AI briefings.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={handleGenerateFromLatest}
             disabled={generateReportMutation.isPending}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-semibold shadow-md transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium shadow-xs transition-colors disabled:opacity-50"
           >
-            <PlusCircle className="w-3.5 h-3.5" />
+            {generateReportMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <PlusCircle className="w-3.5 h-3.5" />}
             <span>Generate New Report</span>
           </button>
           {activeReport && (
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-xs font-sans text-[var(--text-secondary)] transition-colors"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Print / Save PDF</span>
+              <span>Print / PDF</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Main Layout: Report List on Left, Printable Document Preview on Right */}
+      {/* Main Layout: Report List on Left, Document Preview on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Report History (4 cols) */}
-        <div className="lg:col-span-4 rounded-lg bg-slate-900 border border-slate-800 p-4 space-y-3 font-mono text-xs">
-          <div className="text-slate-400 font-semibold uppercase tracking-wider pb-2 border-b border-slate-800">
+        <div className="lg:col-span-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-4 space-y-3 text-xs">
+          <div className="text-[var(--text-muted)] font-sans font-medium uppercase tracking-wider text-[11px] pb-2 border-b border-[var(--border-subtle)]">
             Generated Reports ({reports?.length || 0})
           </div>
 
-          <div className="space-y-2 max-h-[600px] overflow-y-auto">
+          <div className="space-y-1.5 max-h-[600px] overflow-y-auto">
             {reports && reports.length > 0 ? (
               reports.map((rep) => (
                 <div
@@ -104,22 +103,22 @@ export const Reports: React.FC = () => {
                   onClick={() => setSelectedReportId(rep.id)}
                   className={`p-3 rounded border cursor-pointer transition-colors space-y-1 ${
                     selectedReportId === rep.id
-                      ? 'bg-slate-800 border-cyan-500/60 text-slate-100'
-                      : 'bg-slate-950/60 border-slate-800 hover:bg-slate-850 text-slate-400'
+                      ? 'bg-[var(--bg-panel-elevated)] border-sky-500/50 text-[var(--text-primary)]'
+                      : 'bg-[var(--bg-panel-subtle)] border-[var(--border-panel)] hover:bg-[var(--bg-panel-elevated)] text-[var(--text-secondary)]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-cyan-400">{rep.id}</span>
+                    <span className="font-semibold font-mono text-sky-500 text-xs">{rep.id}</span>
                     <VerdictBadge status={rep.verdict} size="sm" />
                   </div>
-                  <div className="text-slate-200 font-medium truncate">{rep.title}</div>
-                  <div className="text-[10px] text-slate-500">
+                  <div className="text-[var(--text-primary)] font-medium font-sans truncate">{rep.title}</div>
+                  <div className="text-[10px] text-[var(--text-muted)] font-mono">
                     {new Date(rep.created_at).toLocaleString()}
                   </div>
                 </div>
               ))
             ) : (
-              <div className="text-center py-6 text-slate-500">
+              <div className="text-center py-6 text-[var(--text-muted)] font-sans">
                 No reports generated yet. Click "Generate New Report".
               </div>
             )}
@@ -129,59 +128,59 @@ export const Reports: React.FC = () => {
         {/* Right: Printable Audit Report Document (8 cols) */}
         <div className="lg:col-span-8">
           {activeReport ? (
-            <div id="printable-report" className="rounded-lg bg-slate-900 border border-slate-800 p-8 space-y-6 font-mono text-xs text-slate-300 shadow-xl">
+            <div id="printable-report" className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-7 space-y-6 text-xs text-[var(--text-secondary)]">
               {/* Report Header */}
-              <div className="border-b border-slate-700 pb-4 space-y-2">
+              <div className="border-b border-[var(--border-subtle)] pb-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="text-lg font-bold text-slate-100 font-mono tracking-wide">
-                    QUANTUM SECURITY AUDIT REPORT
+                  <div className="text-base font-bold text-[var(--text-primary)] font-sans tracking-wide">
+                    Quantum Security Audit Report
                   </div>
                   <VerdictBadge status={activeReport.verdict} size="md" />
                 </div>
-                <div className="flex flex-wrap items-center justify-between text-slate-400 text-[11px]">
-                  <span>Report ID: <strong className="text-cyan-400">{activeReport.id}</strong></span>
-                  <span>Session: <strong className="text-slate-200">{activeReport.session_id}</strong></span>
-                  <span>Timestamp: <strong className="text-slate-200">{new Date(activeReport.created_at).toLocaleString()}</strong></span>
+                <div className="flex flex-wrap items-center justify-between text-[var(--text-muted)] text-[11px] font-mono">
+                  <span>Report ID: <strong className="text-sky-500">{activeReport.id}</strong></span>
+                  <span>Session: <strong className="text-[var(--text-primary)]">{activeReport.session_id}</strong></span>
+                  <span>Timestamp: <strong className="text-[var(--text-primary)]">{new Date(activeReport.created_at).toLocaleString()}</strong></span>
                 </div>
               </div>
 
               {/* Executive Summary */}
               <div className="space-y-2">
-                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider text-cyan-400">
+                <div className="text-xs font-semibold text-[var(--text-primary)] uppercase tracking-wider font-mono text-sky-500">
                   1. Executive Briefing & Incident Analysis
                 </div>
-                <div className="p-4 rounded bg-slate-950 border border-slate-800 font-sans text-sm text-slate-200 leading-relaxed whitespace-pre-line">
+                <div className="p-4 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] font-sans text-xs text-[var(--text-primary)] leading-relaxed whitespace-pre-line">
                   {activeReport.summary}
                 </div>
               </div>
 
               {/* Statistical Metrics Breakdown */}
               <div className="space-y-2">
-                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider text-cyan-400">
+                <div className="text-xs font-semibold text-[var(--text-primary)] uppercase tracking-wider font-mono text-sky-500">
                   2. Deterministic Quantum Measurement Proofs
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-3 rounded bg-slate-950 border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">TOTAL VARIATION DISTANCE</span>
-                    <span className="text-base font-bold text-cyan-300">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                  <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+                    <span className="text-[var(--text-muted)] text-[10px] font-sans block">TOTAL VARIATION DISTANCE</span>
+                    <span className="text-base font-bold text-sky-500">
                       {activeReport.statistical_breakdown.total_variation_distance?.toFixed(4) || 'N/A'}
                     </span>
                   </div>
-                  <div className="p-3 rounded bg-slate-950 border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">QUANTUM BIT ERROR (QBER)</span>
-                    <span className="text-base font-bold text-rose-400">
+                  <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+                    <span className="text-[var(--text-muted)] text-[10px] font-sans block">QUANTUM BIT ERROR</span>
+                    <span className="text-base font-bold text-rose-500">
                       {(activeReport.statistical_breakdown.qber * 100)?.toFixed(2)}%
                     </span>
                   </div>
-                  <div className="p-3 rounded bg-slate-950 border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">STATE FIDELITY</span>
-                    <span className="text-base font-bold text-emerald-400">
+                  <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+                    <span className="text-[var(--text-muted)] text-[10px] font-sans block">STATE FIDELITY</span>
+                    <span className="text-base font-bold text-emerald-500">
                       {activeReport.statistical_breakdown.fidelity?.toFixed(4) || 'N/A'}
                     </span>
                   </div>
-                  <div className="p-3 rounded bg-slate-950 border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">CHI-SQUARE P-VALUE</span>
-                    <span className="text-base font-bold text-slate-200">
+                  <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+                    <span className="text-[var(--text-muted)] text-[10px] font-sans block">CHI-SQUARE P-VALUE</span>
+                    <span className="text-base font-bold text-[var(--text-primary)]">
                       {activeReport.statistical_breakdown.chi_square_p_value?.toFixed(4) || 'N/A'}
                     </span>
                   </div>
@@ -190,24 +189,24 @@ export const Reports: React.FC = () => {
 
               {/* Recommendations */}
               <div className="space-y-2">
-                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider text-cyan-400">
+                <div className="text-xs font-semibold text-[var(--text-primary)] uppercase tracking-wider font-mono text-sky-500">
                   3. Recommended Mitigation Actions
                 </div>
-                <ul className="p-4 rounded bg-slate-950 border border-slate-800 space-y-1.5 list-disc list-inside text-slate-300">
+                <ul className="p-4 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1.5 list-disc list-inside text-[var(--text-secondary)] font-sans">
                   {activeReport.recommendations?.map((rec, i) => (
-                    <li key={i}>{rec}</li>
+                    <li key={i} className="leading-relaxed">{rec}</li>
                   ))}
                 </ul>
               </div>
 
               {/* Compliance & Signature Footer */}
-              <div className="pt-4 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500">
+              <div className="pt-3 border-t border-[var(--border-subtle)] flex justify-between items-center text-[10px] text-[var(--text-muted)] font-mono">
                 <span>Verified by QTDS Deterministic Security Engine (Zero-ML Architecture)</span>
-                <span>System Backend: Qiskit Aer Simulation</span>
+                <span>System Backend: Qiskit Aer Simulator</span>
               </div>
             </div>
           ) : (
-            <div className="rounded-lg bg-slate-900 border border-slate-800 p-12 text-center text-slate-500 font-mono">
+            <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-12 text-center text-[var(--text-muted)] font-sans">
               Select or generate a report to inspect.
             </div>
           )}

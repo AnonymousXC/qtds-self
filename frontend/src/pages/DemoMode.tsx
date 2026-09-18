@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import {
   Sparkles,
   Play,
-  ArrowRight,
-  CheckCircle2,
   ShieldCheck,
-  ShieldAlert,
   Bot,
   FileText,
   Flame,
   RefreshCw,
-  RotateCcw
+  RotateCcw,
+  CheckCircle2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { api } from '../services/api';
 import { VerdictBadge } from '../components/VerdictBadge';
-import { MeasurementHistogram } from '../components/MeasurementHistogram';
 
 export const DemoMode: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -130,16 +127,12 @@ export const DemoMode: React.FC = () => {
       });
       setGeneratedReport(rep);
       setCurrentStep(6);
-      confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+      confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } });
     } catch (e) {
       console.error(e);
     } finally {
       setIsRunning(false);
     }
-  };
-
-  const runAutoDemo = async () => {
-    await runStep1();
   };
 
   const resetDemo = () => {
@@ -153,20 +146,20 @@ export const DemoMode: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Sparkles className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-bold font-mono tracking-tight text-slate-100">
-              1-CLICK HACKATHON JUDGE DEMO MODE
+            <Sparkles className="w-5 h-5 text-sky-500" />
+            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              Judge Evaluation Demo Workflow
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-mono bg-cyan-950 text-cyan-400 border border-cyan-800/60 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
               2-MINUTE WORKFLOW
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5 font-sans">
             Demonstrate the full end-to-end Quantum Digital Signature protocol, deterministic threat detection, and AI Copilot briefing in minutes.
           </p>
         </div>
@@ -174,7 +167,7 @@ export const DemoMode: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={resetDemo}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-xs font-mono text-slate-300"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-xs font-sans text-[var(--text-secondary)] transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Demo</span>
@@ -183,7 +176,7 @@ export const DemoMode: React.FC = () => {
       </div>
 
       {/* Step Progress Tracker */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
         {[
           { num: 1, title: '1. Sign (Alice)', status: currentStep > 1 ? 'done' : currentStep === 1 ? 'active' : 'todo' },
           { num: 2, title: '2. Verify (Bob)', status: currentStep > 2 ? 'done' : currentStep === 2 ? 'active' : 'todo' },
@@ -193,43 +186,43 @@ export const DemoMode: React.FC = () => {
         ].map((s) => (
           <div
             key={s.num}
-            className={`p-3 rounded-lg border text-center transition-all ${
+            className={`p-3 rounded-md border text-center transition-all ${
               s.status === 'done'
-                ? 'bg-emerald-950/40 border-emerald-800 text-emerald-400'
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500'
                 : s.status === 'active'
-                ? 'bg-cyan-950/60 border-cyan-500 text-cyan-300 font-bold shadow-sm'
-                : 'bg-slate-900 border-slate-800 text-slate-500'
+                ? 'bg-[var(--bg-panel-elevated)] border-sky-500 text-sky-500 font-semibold shadow-xs'
+                : 'bg-[var(--bg-panel)] border-[var(--border-panel)] text-[var(--text-muted)]'
             }`}
           >
-            <div className="text-[10px] text-slate-400">Step {s.num}</div>
-            <div className="truncate">{s.title}</div>
+            <div className="text-[10px] font-mono text-[var(--text-muted)]">Step {s.num}</div>
+            <div className="truncate font-sans font-medium text-xs mt-0.5">{s.title}</div>
           </div>
         ))}
       </div>
 
       {/* Interactive Step Card */}
-      <div className="rounded-lg bg-slate-900 border border-slate-800 p-6 space-y-6 font-mono">
+      <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-6 space-y-6">
         {/* Step 1: Sign */}
         {currentStep === 1 && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">1</span>
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2 font-sans">
+                <span className="w-5 h-5 rounded bg-sky-600 text-white flex items-center justify-center text-xs font-mono">1</span>
                 <span>STEP 1: Generate Teleportation QDS Signature</span>
               </h3>
-              <span className="text-xs text-slate-400">Protocol: Bennett-93 EPR Teleportation</span>
+              <span className="text-xs font-mono text-[var(--text-muted)]">Protocol: Bennett-93 EPR</span>
             </div>
 
-            <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               Alice initializes an entangled EPR Bell pair channel with Bob and teleports private Pauli eigenstate tokens to sign the transaction message.
             </p>
 
             <button
               onClick={runStep1}
               disabled={isRunning}
-              className="px-6 py-3 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium text-xs flex items-center gap-2 shadow-xs disabled:opacity-50"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+              {isRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
               <span>Generate Quantum Signature</span>
             </button>
           </div>
@@ -238,29 +231,29 @@ export const DemoMode: React.FC = () => {
         {/* Step 2: Verify Legitimate Signature */}
         {currentStep === 2 && demoSignature && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">2</span>
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2 font-sans">
+                <span className="w-5 h-5 rounded bg-sky-600 text-white flex items-center justify-center text-xs font-mono">2</span>
                 <span>STEP 2: Verify Legitimate Quantum Signature (Bob)</span>
               </h3>
-              <span className="text-xs text-emerald-400 font-semibold">Signature ID: {demoSignature.id}</span>
+              <span className="text-xs font-mono text-emerald-500">Signature ID: {demoSignature.id}</span>
             </div>
 
-            <div className="p-3.5 rounded bg-slate-950 border border-slate-800 text-xs space-y-1">
-              <div className="text-slate-400">Message: <strong className="text-slate-100 font-sans">{demoSignature.message}</strong></div>
-              <div className="text-slate-400">Digest: <span className="text-cyan-400 text-[11px]">{demoSignature.message_digest}</span></div>
+            <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] text-xs space-y-1 font-mono">
+              <div className="text-[var(--text-muted)] font-sans">Message: <strong className="text-[var(--text-primary)]">{demoSignature.message}</strong></div>
+              <div className="text-[var(--text-muted)]">Digest: <span className="text-sky-500 text-[11px]">{demoSignature.message_digest}</span></div>
             </div>
 
-            <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               Bob applies classical feedforward Pauli corrections (Z^c0 · X^c1) on his entangled qubit and performs projective measurements.
             </p>
 
             <button
               onClick={runStep2}
               disabled={isRunning}
-              className="px-6 py-3 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-medium text-xs flex items-center gap-2 shadow-xs disabled:opacity-50"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
+              {isRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <ShieldCheck className="w-3.5 h-3.5" />}
               <span>Verify Signature Legality</span>
             </button>
           </div>
@@ -269,29 +262,29 @@ export const DemoMode: React.FC = () => {
         {/* Step 3: Legitimate Verified -> Launch Attack */}
         {currentStep === 3 && legitVerification && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">3</span>
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2 font-sans">
+                <span className="w-5 h-5 rounded bg-sky-600 text-white flex items-center justify-center text-xs font-mono">3</span>
                 <span>STEP 3: Launch Cyber-Physical Attack Simulation</span>
               </h3>
               <VerdictBadge status={legitVerification.status} size="sm" />
             </div>
 
-            <div className="p-3 rounded bg-emerald-950/40 border border-emerald-800 text-xs text-emerald-300 space-y-1">
+            <div className="p-3 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-500 space-y-1 font-mono">
               <div>✓ Legitimate Signature Verified with TVD = {legitVerification.statistical_metrics.total_variation_distance.toFixed(4)} (≤ 0.1500)</div>
               <div>✓ Quantum State Fidelity = {legitVerification.statistical_metrics.fidelity.toFixed(4)} (≥ 0.8500)</div>
             </div>
 
-            <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               Now simulate an active adversary launching a <strong>Quantum Channel Tampering / Eavesdropping Attack</strong> (introducing depolarizing decoherence noise onto the transmission line).
             </p>
 
             <button
               onClick={runStep3}
               disabled={isRunning}
-              className="px-6 py-3 rounded bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 rounded bg-rose-600 hover:bg-rose-500 text-white font-sans font-medium text-xs flex items-center gap-2 shadow-xs disabled:opacity-50"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Flame className="w-4 h-4" />}
+              {isRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Flame className="w-3.5 h-3.5" />}
               <span>Simulate Quantum Attack & Run Detection</span>
             </button>
           </div>
@@ -300,30 +293,30 @@ export const DemoMode: React.FC = () => {
         {/* Step 4: Threat Detected -> Ask Copilot */}
         {currentStep === 4 && attackResult && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">4</span>
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2 font-sans">
+                <span className="w-5 h-5 rounded bg-sky-600 text-white flex items-center justify-center text-xs font-mono">4</span>
                 <span>STEP 4: Deterministic Engine Detected Threat! Consult AI Copilot</span>
               </h3>
               <VerdictBadge status="MALICIOUS" size="sm" />
             </div>
 
-            <div className="p-3.5 rounded bg-rose-950/40 border border-rose-800 text-xs text-rose-300 space-y-1.5">
+            <div className="p-3 rounded bg-rose-500/10 border border-rose-500/20 text-xs text-rose-500 space-y-1.5 font-mono">
               <div className="font-bold">⚠️ MALICIOUS ATTACK INTERCEPTED: {attackResult.attack_type}</div>
-              <div>• TVD Metric Jump: +{attackResult.metrics_delta.tvd_delta.toFixed(4)} (Exceeds threshold 0.1000)</div>
+              <div>• TVD Metric Shift: +{attackResult.metrics_delta.tvd_delta.toFixed(4)} (Exceeds threshold 0.1000)</div>
               <div>• QBER Quantum Error: +{(attackResult.metrics_delta.qber_delta * 100).toFixed(1)}%</div>
             </div>
 
-            <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               Ask the auxiliary <strong>Quantum Security Copilot</strong> to explain the physical mechanism behind this detection based on structured measurement statistics.
             </p>
 
             <button
               onClick={runStep4}
               disabled={isRunning}
-              className="px-6 py-3 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium text-xs flex items-center gap-2 shadow-xs disabled:opacity-50"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Bot className="w-4 h-4" />}
+              {isRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Bot className="w-3.5 h-3.5" />}
               <span>Generate AI Incident Briefing</span>
             </button>
           </div>
@@ -332,24 +325,24 @@ export const DemoMode: React.FC = () => {
         {/* Step 5: Copilot Explanation -> Generate Report */}
         {currentStep === 5 && aiExplanation && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">5</span>
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2 font-sans">
+                <span className="w-5 h-5 rounded bg-sky-600 text-white flex items-center justify-center text-xs font-mono">5</span>
                 <span>STEP 5: Generate Formal Security Audit Report</span>
               </h3>
-              <span className="text-xs text-cyan-400 font-mono">Copilot Briefing Ready</span>
+              <span className="text-xs text-sky-500 font-mono">Copilot Briefing Ready</span>
             </div>
 
-            <div className="p-4 rounded bg-slate-950 border border-slate-800 font-sans text-xs text-slate-200 leading-relaxed whitespace-pre-line">
+            <div className="p-3.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] font-sans text-xs text-[var(--text-primary)] leading-relaxed whitespace-pre-line">
               {aiExplanation.explanation}
             </div>
 
             <button
               onClick={runStep5}
               disabled={isRunning}
-              className="px-6 py-3 rounded bg-indigo-500 hover:bg-indigo-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-sans font-medium text-xs flex items-center gap-2 shadow-xs disabled:opacity-50"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
+              {isRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <FileText className="w-3.5 h-3.5" />}
               <span>Generate Formal Audit Report</span>
             </button>
           </div>
@@ -358,24 +351,24 @@ export const DemoMode: React.FC = () => {
         {/* Step 6: Complete! */}
         {currentStep === 6 && generatedReport && (
           <div className="space-y-4 text-center py-4">
-            <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-            <h3 className="text-lg font-bold text-slate-100">
-              DEMONSTRATION COMPLETED SUCCESSFULLY!
+            <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+            <h3 className="text-base font-bold text-[var(--text-primary)] font-sans">
+              Demonstration Completed Successfully
             </h3>
-            <p className="text-xs text-slate-400 font-sans max-w-md mx-auto">
+            <p className="text-xs text-[var(--text-muted)] font-sans max-w-md mx-auto leading-relaxed">
               All 6 protocol stages executed: Real Qiskit teleportation circuit, deterministic threat classification, AI reasoning briefing, and formal PDF report generation.
             </p>
 
             <div className="flex justify-center gap-3 pt-2">
               <a
                 href="/reports"
-                className="px-5 py-2.5 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs"
+                className="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium text-xs shadow-xs"
               >
                 Inspect Audit Report Artifact
               </a>
               <button
                 onClick={resetDemo}
-                className="px-5 py-2.5 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold text-xs"
+                className="px-4 py-2 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--border-panel)] border border-[var(--border-panel)] text-[var(--text-secondary)] font-sans font-medium text-xs"
               >
                 Run Again
               </button>

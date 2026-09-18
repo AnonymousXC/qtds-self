@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Cpu, ShieldCheck, Activity, Radio, PlayCircle, RefreshCw } from 'lucide-react';
+import { Cpu, ShieldCheck, RefreshCw, Sparkles, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 interface NavbarProps {
   currentSessionId?: string;
@@ -11,7 +12,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentSessionId, onRefresh }) =
   const [wsConnected, setWsConnected] = useState(true);
 
   useEffect(() => {
-    // Check WebSocket health or setup simple ping
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws/telemetry`;
     let ws: WebSocket | null = null;
@@ -29,70 +29,72 @@ export const Navbar: React.FC<NavbarProps> = ({ currentSessionId, onRefresh }) =
   }, []);
 
   return (
-    <header className="h-16 border-b border-slate-800 bg-slate-900/95 backdrop-blur px-6 flex items-center justify-between sticky top-0 z-40">
-      {/* Brand & Subtitle */}
+    <header className="h-14 border-b border-[var(--border-panel)] bg-[var(--bg-panel)] px-6 flex items-center justify-between sticky top-0 z-40">
+      {/* Product Title / Breadcrumb context */}
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono font-bold text-lg">
-          Q
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-100 tracking-wide text-sm font-mono">QTDS-ENGINE</span>
-            <span className="px-2 py-0.5 text-[10px] font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/50 rounded">
-              v1.0 RESEARCH
-            </span>
-          </div>
-          <p className="text-[11px] text-slate-400">Quantum-Inspired Cyber Threat Detection for Digital Signatures</p>
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-[var(--text-primary)] text-xs tracking-wide font-mono">
+            QTDS // SECURITY PLATFORM
+          </span>
+          <span className="h-3 w-px bg-[var(--border-panel)] hidden sm:inline-block" />
+          <span className="text-[11px] text-[var(--text-muted)] font-sans hidden md:inline">
+            Quantum Threat Detection System
+          </span>
         </div>
       </div>
 
-      {/* Center Metadata Telemetry */}
-      <div className="hidden lg:flex items-center gap-6 text-xs font-mono">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-950/60 border border-slate-800 text-slate-300">
-          <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="text-slate-500">SIMULATOR:</span>
-          <span className="text-cyan-300 font-medium">Qiskit Aer (Local)</span>
+      {/* Center Engine Telemetry - Clean System Metadata */}
+      <div className="hidden lg:flex items-center gap-4 text-xs font-sans text-[var(--text-secondary)]">
+        <div className="flex items-center gap-1.5 text-[11px]">
+          <span className="text-[var(--text-muted)]">Backend:</span>
+          <span className="font-mono text-[var(--text-primary)] font-medium">Qiskit Aer</span>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-950/60 border border-slate-800 text-slate-300">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-slate-500">ENGINE:</span>
-          <span className="text-emerald-400 font-medium">Deterministic & Statistical (Zero ML)</span>
+        <span className="h-3 w-px bg-[var(--border-panel)]" />
+
+        <div className="flex items-center gap-1.5 text-[11px]">
+          <span className="text-[var(--text-muted)]">Engine:</span>
+          <span className="font-sans text-[var(--text-primary)] font-medium">Zero-ML Deterministic</span>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-950/60 border border-slate-800 text-slate-300">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-slate-400">TELEMETRY:</span>
-          <span className="text-slate-200">{wsConnected ? 'ACTIVE' : 'POLLING'}</span>
+        <span className="h-3 w-px bg-[var(--border-panel)]" />
+
+        <div className="flex items-center gap-1.5 text-[11px]">
+          <span className={`w-1.5 h-1.5 rounded-full ${wsConnected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+          <span className="text-[var(--text-muted)]">Feed:</span>
+          <span className="font-mono text-[var(--text-primary)]">{wsConnected ? 'LIVE' : 'POLLING'}</span>
         </div>
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         {currentSessionId && (
-          <div className="hidden md:flex items-center gap-1.5 px-3 py-1 text-xs font-mono bg-slate-800/70 border border-slate-700/60 rounded text-slate-300">
-            <span className="text-slate-500">SESSION:</span>
-            <span className="text-cyan-400 font-bold">{currentSessionId}</span>
+          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] rounded text-[var(--text-secondary)]">
+            <span className="text-[var(--text-muted)] text-[10px]">SESSION:</span>
+            <span className="text-sky-500 font-medium text-[11px]">{currentSessionId}</span>
           </div>
         )}
 
         {onRefresh && (
           <button
             onClick={onRefresh}
-            className="p-2 text-slate-400 hover:text-slate-200 bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 rounded-md transition-colors"
-            title="Refresh Data"
+            className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] rounded transition-colors focus:outline-none"
+            title="Refresh Live Data"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-3.5 h-3.5" />
           </button>
         )}
+
+        {/* Theme Switcher */}
+        <ThemeSwitcher />
 
         {/* 1-Click Judge Demo Quick Action */}
         <Link
           to="/demo"
-          className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono font-medium rounded-md bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all shadow-sm shadow-cyan-500/20"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded bg-sky-600 hover:bg-sky-500 text-white transition-colors shadow-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
         >
-          <PlayCircle className="w-3.5 h-3.5" />
-          <span>JUDGE DEMO MODE</span>
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Judge Demo</span>
         </Link>
       </div>
     </header>

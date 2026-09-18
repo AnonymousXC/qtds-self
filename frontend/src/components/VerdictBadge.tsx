@@ -15,33 +15,33 @@ export const VerdictBadge: React.FC<VerdictBadgeProps> = ({
 }) => {
   const normalized = (status || 'UNKNOWN').toUpperCase();
 
-  let colorClasses = 'bg-slate-800 text-slate-300 border-slate-700';
+  let colorClasses = 'bg-[var(--bg-panel-elevated)] text-[var(--text-secondary)] border-[var(--border-panel)]';
   let Icon = ShieldCheck;
   let label = normalized;
 
   if (normalized === 'SECURE') {
-    colorClasses = 'bg-emerald-950/80 text-emerald-400 border-emerald-800/60';
+    colorClasses = 'bg-[var(--status-secure-bg)] text-[var(--status-secure-text)] border-[var(--status-secure-border)]';
     Icon = ShieldCheck;
     label = 'SECURE (AUTHENTIC)';
   } else if (normalized === 'SUSPICIOUS') {
-    colorClasses = 'bg-amber-950/80 text-amber-400 border-amber-800/60';
+    colorClasses = 'bg-[var(--status-suspicious-bg)] text-[var(--status-suspicious-text)] border-[var(--status-suspicious-border)]';
     Icon = AlertTriangle;
     label = 'SUSPICIOUS (MARGINAL)';
   } else if (normalized === 'MALICIOUS') {
-    colorClasses = 'bg-rose-950/80 text-rose-400 border-rose-800/60';
+    colorClasses = 'bg-[var(--status-malicious-bg)] text-[var(--status-malicious-text)] border-[var(--status-malicious-border)]';
     Icon = ShieldAlert;
     label = 'MALICIOUS (THREAT DETECTED)';
   }
 
   const sizeClasses = {
     sm: 'px-2 py-0.5 text-[10px]',
-    md: 'px-3 py-1 text-xs',
-    lg: 'px-4 py-2 text-sm font-semibold'
+    md: 'px-2.5 py-1 text-xs',
+    lg: 'px-3 py-1.5 text-xs font-semibold'
   }[size];
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 font-mono uppercase tracking-wider border rounded-md ${colorClasses} ${sizeClasses}`}
+      className={`inline-flex items-center gap-1.5 font-mono tracking-tight border rounded ${colorClasses} ${sizeClasses}`}
     >
       {showIcon && <Icon className={size === 'lg' ? 'w-4 h-4' : 'w-3.5 h-3.5'} />}
       <span>{label}</span>

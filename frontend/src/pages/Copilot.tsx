@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import { Bot, Send, Sparkles, ShieldCheck, HelpCircle, Layers, CheckCircle2, ArrowRight, RefreshCw } from 'lucide-react';
+import { Bot, Send, Sparkles, Layers, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
-import { AICopilotResponse } from '../types';
 import { VerdictBadge } from '../components/VerdictBadge';
 
 export const Copilot: React.FC = () => {
@@ -68,31 +67,31 @@ export const Copilot: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Bot className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-bold font-mono tracking-tight text-slate-100">
-              AI QUANTUM SECURITY COPILOT
+            <Bot className="w-5 h-5 text-sky-500" />
+            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              AI Quantum Security Copilot
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-mono bg-indigo-950 text-indigo-400 border border-indigo-800/60 rounded">
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 rounded">
               AUXILIARY REASONING ENGINE
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5 font-sans">
             Provider-agnostic conversational assistant that explains deterministic quantum detection outputs, statistics, and physics principles.
           </p>
         </div>
 
         {/* Active Context Chip */}
-        <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="text-slate-500">CONTEXT:</span>
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-[var(--text-muted)] font-sans font-medium">Context:</span>
           <select
             value={selectedVerifId}
             onChange={(e) => setSelectedVerifId(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded px-3 py-1.5 text-slate-200 outline-none focus:border-cyan-500"
+            className="bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] outline-none focus:border-sky-500 font-mono text-xs"
           >
             {verifications?.map((v) => (
               <option key={v.id} value={v.id}>
@@ -105,31 +104,31 @@ export const Copilot: React.FC = () => {
 
       {/* Structured Context Inspector Card */}
       {activeVerif && (
-        <div className="p-4 rounded-lg bg-slate-900 border border-slate-800 font-mono text-xs space-y-2">
+        <div className="p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-xs space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-slate-400 font-semibold flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              <span>DETERMINISTIC CONTEXT SUPPLIED TO COPILOT</span>
+            <span className="text-[var(--text-primary)] font-medium font-sans flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-sky-500" />
+              <span>Deterministic Context Supplied to Copilot</span>
             </span>
             <VerdictBadge status={activeVerif.status} size="sm" />
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] pt-1">
-            <div className="p-2 rounded bg-slate-950 border border-slate-800">
-              <span className="text-slate-500 block">TVD Distance:</span>
-              <span className="text-cyan-400 font-bold">{activeVerif.statistical_metrics.total_variation_distance.toFixed(4)}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono pt-1">
+            <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+              <span className="text-[var(--text-muted)] font-sans block text-[10px]">TVD Distance:</span>
+              <span className="text-sky-500 font-semibold">{activeVerif.statistical_metrics.total_variation_distance.toFixed(4)}</span>
             </div>
-            <div className="p-2 rounded bg-slate-950 border border-slate-800">
-              <span className="text-slate-500 block">QBER Error:</span>
-              <span className="text-rose-400 font-bold">{(activeVerif.statistical_metrics.qber * 100).toFixed(1)}%</span>
+            <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+              <span className="text-[var(--text-muted)] font-sans block text-[10px]">QBER Error:</span>
+              <span className="text-rose-500 font-semibold">{(activeVerif.statistical_metrics.qber * 100).toFixed(1)}%</span>
             </div>
-            <div className="p-2 rounded bg-slate-950 border border-slate-800">
-              <span className="text-slate-500 block">State Fidelity:</span>
-              <span className="text-emerald-400 font-bold">{activeVerif.statistical_metrics.fidelity.toFixed(4)}</span>
+            <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+              <span className="text-[var(--text-muted)] font-sans block text-[10px]">State Fidelity:</span>
+              <span className="text-emerald-500 font-semibold">{activeVerif.statistical_metrics.fidelity.toFixed(4)}</span>
             </div>
-            <div className="p-2 rounded bg-slate-950 border border-slate-800">
-              <span className="text-slate-500 block">Attack Type:</span>
-              <span className="text-indigo-300 font-bold">{activeVerif.attack_type}</span>
+            <div className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)]">
+              <span className="text-[var(--text-muted)] font-sans block text-[10px]">Classification:</span>
+              <span className="text-indigo-500 font-semibold">{activeVerif.attack_type}</span>
             </div>
           </div>
         </div>
@@ -137,13 +136,13 @@ export const Copilot: React.FC = () => {
 
       {/* Quick Prompt Chips */}
       <div className="space-y-1.5">
-        <div className="text-[11px] font-mono text-slate-500">QUICK INVESTIGATION PROMPTS:</div>
+        <div className="text-[11px] font-sans font-medium text-[var(--text-muted)] uppercase tracking-wider">Quick Investigation Prompts</div>
         <div className="flex flex-wrap gap-2">
           {promptChips.map((chip, idx) => (
             <button
               key={idx}
               onClick={() => handleSend(chip)}
-              className="px-3 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-800/60 text-xs font-mono text-slate-300 transition-colors"
+              className="px-3 py-1 rounded-full bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] hover:border-[var(--border-hover)] text-xs text-[var(--text-secondary)] transition-colors font-sans"
             >
               {chip}
             </button>
@@ -154,10 +153,10 @@ export const Copilot: React.FC = () => {
       {/* Conversation Thread Area */}
       <div className="space-y-4">
         {conversation.length === 0 ? (
-          <div className="p-8 rounded-lg bg-slate-900/60 border border-slate-800 text-center space-y-3 font-mono">
-            <Bot className="w-10 h-10 text-cyan-400 mx-auto opacity-75" />
-            <div className="text-sm font-semibold text-slate-200">Quantum Security Copilot Ready</div>
-            <p className="text-xs text-slate-400 max-w-lg mx-auto font-sans">
+          <div className="p-8 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-center space-y-3">
+            <Bot className="w-8 h-8 text-sky-500 mx-auto opacity-75" />
+            <div className="text-sm font-semibold text-[var(--text-primary)] font-sans">Quantum Security Copilot Ready</div>
+            <p className="text-xs text-[var(--text-muted)] max-w-lg mx-auto font-sans leading-relaxed">
               Ask any question about quantum teleportation signatures, Bell state entanglement, or the mathematical proofs behind threat classifications.
             </p>
           </div>
@@ -166,40 +165,40 @@ export const Copilot: React.FC = () => {
             <div key={idx} className="space-y-2">
               {msg.role === 'user' ? (
                 <div className="flex justify-end">
-                  <div className="max-w-xl p-3.5 rounded-lg bg-cyan-950/80 border border-cyan-800/60 text-cyan-100 font-mono text-xs">
+                  <div className="max-w-xl p-3 rounded-md bg-[var(--bg-panel-elevated)] border border-[var(--border-panel)] text-[var(--text-primary)] font-sans text-xs leading-relaxed">
                     {msg.data.query}
                   </div>
                 </div>
               ) : (
-                <div className="max-w-3xl p-5 rounded-lg bg-slate-900 border border-slate-800 font-mono text-xs space-y-4">
+                <div className="max-w-3xl p-5 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] space-y-4">
                   {/* Confidence Note Header */}
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-800 text-[11px]">
-                    <span className="text-cyan-400 font-semibold flex items-center gap-1.5">
+                  <div className="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)] text-[11px]">
+                    <span className="text-sky-500 font-medium flex items-center gap-1.5 font-sans">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>{msg.data.confidence_note}</span>
                     </span>
                     <VerdictBadge status={msg.data.verdict} size="sm" />
                   </div>
 
-                  {/* Markdown Explanation Body */}
-                  <div className="font-sans text-sm text-slate-200 leading-relaxed whitespace-pre-line space-y-2">
+                  {/* Explanation Body */}
+                  <div className="font-sans text-sm text-[var(--text-primary)] leading-relaxed whitespace-pre-line space-y-2">
                     {msg.data.explanation}
                   </div>
 
                   {/* Quantum Principles & Recommendations */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t border-slate-800 text-[11px]">
-                    <div className="p-3 rounded bg-slate-950 border border-slate-800 space-y-1">
-                      <div className="text-cyan-400 font-semibold">Quantum Physical Foundations:</div>
-                      <ul className="list-disc list-inside text-slate-400 space-y-0.5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t border-[var(--border-subtle)] text-[11px] font-sans">
+                    <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1">
+                      <div className="text-sky-500 font-medium">Quantum Physical Foundations:</div>
+                      <ul className="list-disc list-inside text-[var(--text-muted)] space-y-0.5">
                         {msg.data.quantum_principles?.map((p: string, i: number) => (
                           <li key={i}>{p}</li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="p-3 rounded bg-slate-950 border border-slate-800 space-y-1">
-                      <div className="text-emerald-400 font-semibold">Recommended Actions:</div>
-                      <ul className="list-disc list-inside text-slate-400 space-y-0.5">
+                    <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1">
+                      <div className="text-emerald-500 font-medium">Recommended Actions:</div>
+                      <ul className="list-disc list-inside text-[var(--text-muted)] space-y-0.5">
                         {msg.data.recommended_actions?.map((a: string, i: number) => (
                           <li key={i}>{a}</li>
                         ))}
@@ -219,22 +218,22 @@ export const Copilot: React.FC = () => {
           e.preventDefault();
           handleSend();
         }}
-        className="flex items-center gap-3 p-2 rounded-lg bg-slate-900 border border-slate-800 font-mono text-xs"
+        className="flex items-center gap-2 p-1.5 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-xs"
       >
         <input
           type="text"
           value={userQuery}
           onChange={(e) => setUserQuery(e.target.value)}
-          placeholder="Ask Copilot about this quantum verification or attack..."
-          className="flex-1 bg-transparent px-3 py-2 text-slate-200 outline-none"
+          placeholder="Ask Copilot about this quantum verification or attack mechanism..."
+          className="flex-1 bg-transparent px-3 py-2 text-[var(--text-primary)] outline-none font-sans text-xs"
         />
         <button
           type="submit"
           disabled={copilotMutation.isPending || !userQuery.trim()}
-          className="px-4 py-2 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all flex items-center gap-1.5"
+          className="px-3.5 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium transition-colors flex items-center gap-1.5 disabled:opacity-50"
         >
           {copilotMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-          <span>Ask</span>
+          <span>Send</span>
         </button>
       </form>
     </div>

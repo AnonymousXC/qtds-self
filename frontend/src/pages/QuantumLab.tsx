@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Atom, Play, Sliders, RefreshCw, Cpu, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Atom, Play, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
 import { QuantumCircuitVisualizer } from '../components/QuantumCircuitVisualizer';
 import { MeasurementHistogram } from '../components/MeasurementHistogram';
@@ -29,20 +29,20 @@ export const QuantumLab: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Page Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Atom className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-bold font-mono tracking-tight text-slate-100">
-              QUANTUM LAB & SIMULATOR
+            <Atom className="w-5 h-5 text-sky-500" />
+            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              Quantum Lab & Simulator
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 rounded">
-              QISKIT AER ENGINE
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+              QISKIT AER SIMULATOR
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5 font-sans">
             Interactive quantum teleportation circuit designer, state tomography explorer, and Pauli correction simulator.
           </p>
         </div>
@@ -50,22 +50,22 @@ export const QuantumLab: React.FC = () => {
         <button
           onClick={() => refetch()}
           disabled={isLoading}
-          className="flex items-center gap-2 px-4 py-2 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-semibold transition-all shadow-md"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium transition-colors shadow-xs disabled:opacity-50 focus:outline-none"
         >
-          {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-          <span>EXECUTE CIRCUIT</span>
+          {isLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
+          <span>Execute Circuit</span>
         </button>
       </div>
 
       {/* Circuit Configuration Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-lg bg-slate-900 border border-slate-800 font-mono text-xs">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] text-xs">
         {/* Input State */}
         <div className="space-y-1.5">
-          <label className="text-slate-400 font-semibold block">Input State |ψ⟩</label>
+          <label className="text-[var(--text-secondary)] font-medium font-sans block">Input State |ψ⟩</label>
           <select
             value={inputState}
             onChange={(e) => setInputState(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200 focus:border-cyan-500 outline-none"
+            className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] focus:border-sky-500 outline-none font-mono text-xs"
           >
             <option value="0">|0⟩ (Computational Zero)</option>
             <option value="1">|1⟩ (Computational One)</option>
@@ -78,11 +78,11 @@ export const QuantumLab: React.FC = () => {
 
         {/* Measurement Basis */}
         <div className="space-y-1.5">
-          <label className="text-slate-400 font-semibold block">Measurement Basis</label>
+          <label className="text-[var(--text-secondary)] font-medium font-sans block">Measurement Basis</label>
           <select
             value={measurementBasis}
             onChange={(e) => setMeasurementBasis(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200 focus:border-cyan-500 outline-none"
+            className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] focus:border-sky-500 outline-none font-mono text-xs"
           >
             <option value="Z">Pauli Z-Basis [|0⟩, |1⟩]</option>
             <option value="X">Pauli X-Basis [|+⟩, |-⟩]</option>
@@ -92,11 +92,11 @@ export const QuantumLab: React.FC = () => {
 
         {/* Bell State */}
         <div className="space-y-1.5">
-          <label className="text-slate-400 font-semibold block">Shared Entangled EPR Pair</label>
+          <label className="text-[var(--text-secondary)] font-medium font-sans block">Shared Entangled EPR Pair</label>
           <select
             value={bellState}
             onChange={(e) => setBellState(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200 focus:border-cyan-500 outline-none"
+            className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] focus:border-sky-500 outline-none font-mono text-xs"
           >
             <option value="PHI_PLUS">|Φ+⟩ = (|00⟩ + |11⟩)/√2</option>
             <option value="PHI_MINUS">|Φ-⟩ = (|00⟩ - |11⟩)/√2</option>
@@ -107,7 +107,10 @@ export const QuantumLab: React.FC = () => {
 
         {/* Shots */}
         <div className="space-y-1.5">
-          <label className="text-slate-400 font-semibold block">Simulator Shots: {shots}</label>
+          <div className="flex justify-between text-[var(--text-secondary)] font-sans">
+            <label className="font-medium">Simulator Shots</label>
+            <span className="font-mono text-sky-500 font-semibold">{shots}</span>
+          </div>
           <input
             type="range"
             min="256"
@@ -115,7 +118,7 @@ export const QuantumLab: React.FC = () => {
             step="256"
             value={shots}
             onChange={(e) => setShots(Number(e.target.value))}
-            className="w-full accent-cyan-400 cursor-pointer"
+            className="w-full accent-sky-500 cursor-pointer mt-1"
           />
         </div>
       </div>
@@ -125,7 +128,7 @@ export const QuantumLab: React.FC = () => {
         <MetricCard
           title="TVD Statistical Distance"
           value={simResult?.statistical_metrics?.total_variation_distance?.toFixed(4) ?? '0.0000'}
-          subtitle="δ(P, Q) against Expected"
+          subtitle="δ(P, Q) vs Theoretical"
           statusColor={simResult && simResult.statistical_metrics?.total_variation_distance > 0.15 ? 'rose' : 'emerald'}
           formula="δ = ½ ∑ |P - Q|"
         />
@@ -133,7 +136,7 @@ export const QuantumLab: React.FC = () => {
         <MetricCard
           title="Quantum State Fidelity"
           value={simResult?.statistical_metrics?.fidelity?.toFixed(4) ?? '1.0000'}
-          subtitle="Overlap with Teleported State"
+          subtitle="State Overlap Fraction"
           statusColor={simResult && simResult.statistical_metrics?.fidelity < 0.85 ? 'rose' : 'cyan'}
           formula="F = (∑ √P·Q)²"
         />
@@ -141,7 +144,7 @@ export const QuantumLab: React.FC = () => {
         <MetricCard
           title="Circuit Depth & Gates"
           value={`Depth ${simResult?.circuit_metadata?.depth ?? 6} (${simResult?.circuit_metadata?.total_gates ?? 11} Gates)`}
-          subtitle="Qiskit Compilation"
+          subtitle="Qiskit Aer Circuit Graph"
           statusColor="slate"
         />
 

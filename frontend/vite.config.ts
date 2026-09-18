@@ -19,7 +19,7 @@ export default defineConfig({
         target: 'ws://127.0.0.1:8000',
         ws: true,
         configure: (proxy) => {
-          proxy.on('error', (err) => {
+          proxy.on('error', () => {
             // Ignore normal socket disconnects/aborts
           });
         }

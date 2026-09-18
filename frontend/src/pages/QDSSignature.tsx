@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { KeyRound, Send, CheckCircle2, ShieldCheck, Hash, Layers, FileCode, PlusCircle } from 'lucide-react';
+import { KeyRound, Send, CheckCircle2, Layers, PlusCircle, ArrowRight, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
-import { QDSSession, Signature } from '../types';
+import { Signature } from '../types';
 
 export const QDSSignature: React.FC = () => {
   const queryClient = useQueryClient();
@@ -72,20 +72,20 @@ export const QDSSignature: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Page Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <KeyRound className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-bold font-mono tracking-tight text-slate-100">
-              QUANTUM DIGITAL SIGNATURE GENERATION
+            <KeyRound className="w-5 h-5 text-sky-500" />
+            <h1 className="text-xl font-bold font-sans tracking-tight text-[var(--text-primary)]">
+              Quantum Digital Signature Generation
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 rounded">
-              ALICE (SIGNER WORKSPACE)
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-sky-500/10 text-sky-500 border border-sky-500/20 rounded">
+              SIGNER WORKSPACE (ALICE)
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5 font-sans">
             Generate information-theoretically secure digital signatures using teleportation-based quantum public key distribution.
           </p>
         </div>
@@ -94,23 +94,23 @@ export const QDSSignature: React.FC = () => {
       {/* Main Workspace Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Session Configuration & Key Distribution */}
-        <div className="space-y-6">
+        <div className="space-y-5">
           {/* Active Session Card */}
-          <div className="rounded-lg bg-slate-900 border border-slate-800 p-5 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-sm font-semibold text-slate-100 font-mono flex items-center gap-2">
-                <Layers className="w-4 h-4 text-cyan-400" />
-                <span>QDS SESSION KEYPAIR</span>
+          <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-5 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider flex items-center gap-2">
+                <Layers className="w-4 h-4 text-sky-500" />
+                <span>QDS Session Keypair</span>
               </h3>
             </div>
 
             <div className="space-y-3 font-mono text-xs">
               <div>
-                <label className="text-slate-400 block mb-1">Select QDS Session</label>
+                <label className="text-[var(--text-secondary)] font-sans block mb-1">Select QDS Channel</label>
                 <select
                   value={selectedSessionId}
                   onChange={(e) => setSelectedSessionId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200 outline-none focus:border-cyan-500"
+                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-3 py-2 text-[var(--text-primary)] outline-none focus:border-sky-500 font-mono text-xs"
                 >
                   {sessions?.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -121,22 +121,22 @@ export const QDSSignature: React.FC = () => {
               </div>
 
               {activeSession && (
-                <div className="p-3 rounded bg-slate-950/70 border border-slate-800/80 space-y-1.5 text-[11px]">
+                <div className="p-3 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1.5 text-[11px]">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Sender / Signer:</span>
-                    <span className="text-cyan-400 font-semibold">{activeSession.sender}</span>
+                    <span className="text-[var(--text-muted)] font-sans">Sender / Signer:</span>
+                    <span className="text-sky-500 font-semibold">{activeSession.sender}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Receiver / Verifier:</span>
-                    <span className="text-slate-300 font-semibold">{activeSession.receiver}</span>
+                    <span className="text-[var(--text-muted)] font-sans">Receiver / Verifier:</span>
+                    <span className="text-[var(--text-primary)] font-semibold">{activeSession.receiver}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Bell State:</span>
-                    <span className="text-indigo-300">{activeSession.bell_state}</span>
+                    <span className="text-[var(--text-muted)] font-sans">Bell State:</span>
+                    <span className="text-indigo-500">{activeSession.bell_state}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Nonce:</span>
-                    <span className="text-slate-400 truncate max-w-[150px]">{activeSession.session_nonce}</span>
+                    <span className="text-[var(--text-muted)] font-sans">Session Nonce:</span>
+                    <span className="text-[var(--text-secondary)] truncate max-w-[150px]">{activeSession.session_nonce}</span>
                   </div>
                 </div>
               )}
@@ -144,19 +144,19 @@ export const QDSSignature: React.FC = () => {
 
             {/* Alice Quantum Key Tokens Display */}
             {activeSession && activeSession.key_tokens && (
-              <div className="space-y-2 pt-2 border-t border-slate-800">
-                <div className="text-xs font-mono text-slate-400 font-semibold flex justify-between">
+              <div className="space-y-2 pt-2 border-t border-[var(--border-subtle)]">
+                <div className="text-xs font-sans text-[var(--text-secondary)] font-medium flex justify-between">
                   <span>Quantum Key States</span>
-                  <span className="text-cyan-400">{activeSession.key_tokens.length} States</span>
+                  <span className="text-sky-500 font-mono text-[11px]">{activeSession.key_tokens.length} States</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 font-mono text-xs">
                   {activeSession.key_tokens.map((token: any) => (
                     <div
                       key={token.index}
-                      className="p-2 rounded bg-slate-950 border border-slate-800 text-center space-y-0.5"
+                      className="p-2 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] text-center space-y-0.5"
                     >
-                      <div className="text-cyan-300 font-bold text-sm">|{token.state}⟩</div>
-                      <div className="text-[10px] text-slate-500">{token.basis}-Basis</div>
+                      <div className="text-sky-500 font-bold text-sm">|{token.state}⟩</div>
+                      <div className="text-[10px] text-[var(--text-muted)]">{token.basis}-Basis</div>
                     </div>
                   ))}
                 </div>
@@ -165,88 +165,93 @@ export const QDSSignature: React.FC = () => {
           </div>
 
           {/* Quick Create Session Form */}
-          <div className="rounded-lg bg-slate-900 border border-slate-800 p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-slate-100 font-mono flex items-center gap-2">
-              <PlusCircle className="w-4 h-4 text-emerald-400" />
-              <span>INITIALIZE NEW QDS CHANNEL</span>
+          <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-5 space-y-4">
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider flex items-center gap-2">
+              <PlusCircle className="w-4 h-4 text-emerald-500" />
+              <span>Initialize New Channel</span>
             </h3>
 
-            <div className="space-y-3 font-mono text-xs">
+            <div className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-slate-500 block mb-1">Sender</label>
+                  <label className="text-[var(--text-secondary)] font-sans block mb-1">Sender</label>
                   <input
                     type="text"
                     value={senderName}
                     onChange={(e) => setSenderName(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-slate-200 outline-none"
+                    className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] outline-none font-mono text-xs focus:border-sky-500"
                   />
                 </div>
                 <div>
-                  <label className="text-slate-500 block mb-1">Receiver</label>
+                  <label className="text-[var(--text-secondary)] font-sans block mb-1">Receiver</label>
                   <input
                     type="text"
                     value={receiverName}
                     onChange={(e) => setReceiverName(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-slate-200 outline-none"
+                    className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded px-2.5 py-1.5 text-[var(--text-primary)] outline-none font-mono text-xs focus:border-sky-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-slate-500 block mb-1">Key Sequence Length: {keyLength}</label>
+                <div className="flex justify-between text-[var(--text-secondary)] font-sans mb-1">
+                  <span>Key Sequence Length</span>
+                  <span className="font-mono text-sky-500 font-semibold">{keyLength} tokens</span>
+                </div>
                 <input
                   type="range"
                   min="3"
                   max="12"
                   value={keyLength}
                   onChange={(e) => setKeyLength(Number(e.target.value))}
-                  className="w-full accent-cyan-400 cursor-pointer"
+                  className="w-full accent-sky-500 cursor-pointer"
                 />
               </div>
 
               <button
                 onClick={handleCreateNewSession}
                 disabled={createSessionMutation.isPending}
-                className="w-full py-2 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-slate-200 font-semibold transition-colors"
+                className="w-full py-2 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--border-panel)] border border-[var(--border-panel)] text-[var(--text-primary)] font-sans font-medium text-xs transition-colors flex items-center justify-center gap-1.5"
               >
-                {createSessionMutation.isPending ? 'Generating EPR Pairs...' : 'Generate New Quantum Keypair'}
+                {createSessionMutation.isPending && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
+                <span>{createSessionMutation.isPending ? 'Generating EPR Pairs...' : 'Generate New Key Channel'}</span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Right Column: Message Signer & Output Teleportation Signature */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-5">
           {/* Sign Message Input Card */}
-          <div className="rounded-lg bg-slate-900 border border-slate-800 p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-slate-100 font-mono flex items-center gap-2">
-              <Send className="w-4 h-4 text-cyan-400" />
-              <span>COMPOSE & SIGN TRANSACTION MESSAGE</span>
+          <div className="rounded-md bg-[var(--bg-panel)] border border-[var(--border-panel)] p-5 space-y-4">
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider flex items-center gap-2">
+              <Send className="w-4 h-4 text-sky-500" />
+              <span>Compose & Sign Transaction Message</span>
             </h3>
 
-            <form onSubmit={handleGenerate} className="space-y-4 font-mono text-xs">
+            <form onSubmit={handleGenerate} className="space-y-4 text-xs">
               <div>
-                <label className="text-slate-400 block mb-1.5">Message Content to Sign</label>
+                <label className="text-[var(--text-secondary)] font-sans block mb-1.5">Message Content to Sign</label>
                 <textarea
                   rows={3}
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   placeholder="Enter message text, transaction payload, or cryptographic hash..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-md p-3 text-slate-200 focus:border-cyan-500 outline-none font-sans text-sm"
+                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-md p-3 text-[var(--text-primary)] focus:border-sky-500 outline-none font-sans text-sm leading-relaxed"
                 />
               </div>
 
-              <div className="flex items-center justify-between pt-2">
-                <div className="text-[11px] text-slate-500">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div className="text-[11px] text-[var(--text-muted)] font-sans">
                   Signing with Alice's private Pauli eigenstates & Bell state teleportation.
                 </div>
                 <button
                   type="submit"
                   disabled={generateSigMutation.isPending || !selectedSessionId}
-                  className="px-5 py-2.5 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-md flex items-center gap-2"
+                  className="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-medium transition-colors shadow-xs flex items-center gap-2 disabled:opacity-50"
                 >
-                  {generateSigMutation.isPending ? 'Teleporting Signature...' : 'Generate Quantum Signature'}
+                  {generateSigMutation.isPending ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <KeyRound className="w-3.5 h-3.5" />}
+                  <span>{generateSigMutation.isPending ? 'Teleporting...' : 'Generate Quantum Signature'}</span>
                 </button>
               </div>
             </form>
@@ -254,43 +259,43 @@ export const QDSSignature: React.FC = () => {
 
           {/* Generated Signature Output */}
           {createdSignature && (
-            <div className="rounded-lg bg-slate-900 border border-emerald-800/60 p-5 space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="rounded-md bg-[var(--bg-panel)] border border-emerald-500/30 p-5 space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                  <h3 className="text-sm font-semibold text-slate-100 font-mono">
-                    QUANTUM SIGNATURE ISSUED ({createdSignature.id})
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <h3 className="text-xs font-semibold text-[var(--text-primary)] font-mono uppercase tracking-wider">
+                    Quantum Signature Issued ({createdSignature.id})
                   </h3>
                 </div>
-                <span className="px-2.5 py-0.5 text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800/50 rounded">
+                <span className="px-2 py-0.5 text-[10px] font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded">
                   READY FOR VERIFICATION
                 </span>
               </div>
 
               <div className="space-y-3 font-mono text-xs">
                 <div>
-                  <span className="text-slate-500 block mb-1">SHA-256 Message Digest:</span>
-                  <div className="p-2.5 rounded bg-slate-950 border border-slate-800 text-cyan-300 break-all text-[11px]">
+                  <span className="text-[var(--text-muted)] font-sans block mb-1">SHA-256 Message Digest:</span>
+                  <div className="p-2.5 rounded bg-[var(--code-bg)] border border-[var(--border-panel)] text-sky-500 break-all text-[11px]">
                     {createdSignature.message_digest}
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-slate-500 block mb-1.5">Teleported Quantum Signature Tokens:</span>
+                  <span className="text-[var(--text-muted)] font-sans block mb-1.5">Teleported Quantum Signature Tokens:</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                     {createdSignature.signature_tokens.map((tok) => (
                       <div
                         key={tok.token_index}
-                        className="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1 text-[11px]"
+                        className="p-2.5 rounded bg-[var(--bg-panel-subtle)] border border-[var(--border-panel)] space-y-1 text-[11px]"
                       >
-                        <div className="flex justify-between text-slate-400">
+                        <div className="flex justify-between text-[var(--text-secondary)]">
                           <span>Token #{tok.token_index}</span>
-                          <span className="text-cyan-400 font-bold">Bit: {tok.message_bit}</span>
+                          <span className="text-sky-500 font-semibold">Bit: {tok.message_bit}</span>
                         </div>
-                        <div className="text-slate-200">
-                          State: <strong className="text-emerald-400">|{tok.quantum_state}⟩</strong> ({tok.measurement_basis})
+                        <div className="text-[var(--text-primary)]">
+                          State: <strong className="text-emerald-500">|{tok.quantum_state}⟩</strong> ({tok.measurement_basis})
                         </div>
-                        <div className="text-[9px] text-slate-500 truncate">{tok.teleportation_channel_id}</div>
+                        <div className="text-[9px] text-[var(--text-muted)] truncate">{tok.teleportation_channel_id}</div>
                       </div>
                     ))}
                   </div>
@@ -299,9 +304,10 @@ export const QDSSignature: React.FC = () => {
                 <div className="pt-2 flex justify-end">
                   <Link
                     to={`/verification?session_id=${createdSignature.session_id}&signature_id=${createdSignature.id}`}
-                    className="flex items-center gap-2 px-4 py-2 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-md"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-sans text-xs font-medium transition-colors shadow-xs"
                   >
-                    <span>Proceed to Verification Center (Bob)</span>
+                    <span>Proceed to Verification (Bob)</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
